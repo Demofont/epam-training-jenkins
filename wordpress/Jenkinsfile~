@@ -1,10 +1,5 @@
 pipeline {
     agent any
-
-    tools {
-        terraform 'terraform'
-    }
-
     stages {
         stage('Terraform init') {
             environment {
@@ -14,7 +9,6 @@ pipeline {
                 sh 'terraform init'   
             }        
         }
-
         stage('Terraform apply') {
             environment {
             AWS_ACCESS_KEYS = credentials('aws_rootkey')
