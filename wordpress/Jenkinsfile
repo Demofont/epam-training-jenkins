@@ -1,35 +1,30 @@
 pipeline {
+    environment {
+        AWS_ACCESS_KEYS = credentials('aws_rootkey')
+    }
+    
     agent any
 
     tools {
         terraform 'terraform'
     }
-
+    
     stages {
-        stage('Terraform init') {
-            environment {
-            AWS_ACCESS_KEYS = credentials('aws_rootkey')
-            }
+        stage('init') {
             steps {
-                sh 'terraform init'   
-            }        
+                sh 'terraform init'
+            }
         }
-    }
+        stage('plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
 
-    stages {
-        stage('directory') {
+        stage('Deploy') {
             steps {
-                sh 'll'   
-            }        
-        }
-    }
-        stage('Terraform apply') {
-            environment {
-            AWS_ACCESS_KEYS = credentials('aws_rootkey')
+                sh 'terraform apply --auto-approve'
             }
-             steps {
-                sh 'terraform apply --auto-approve'   
-            }        
         }
     }
 }
