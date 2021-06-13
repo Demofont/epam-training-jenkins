@@ -14,7 +14,15 @@ pipeline {
                 sh 'terraform init'   
             }        
         }
+    }
 
+    stages {
+        stage('directory') {
+            steps {
+                sh 'll'   
+            }        
+        }
+    }
         stage('Terraform apply') {
             environment {
             AWS_ACCESS_KEYS = credentials('aws_rootkey')
