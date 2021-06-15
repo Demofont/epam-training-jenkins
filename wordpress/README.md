@@ -1,1 +1,0 @@
-# jenkins-wordpress-test
